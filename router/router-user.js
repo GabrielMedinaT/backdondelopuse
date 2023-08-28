@@ -187,9 +187,9 @@ router.get("/", async (req, res, next) => {
     return next(err);
   }
 });
-// router.use(checkAuth);
+router.use(checkAuth);
 //*VER USUARIOS
-router.get("/", async (req, res, next) => {
+router.get("/", checkAuth, async (req, res, next) => {
   try {
     const usuarios = await User.find().populate("objet");
     res.json({ usuarios });
@@ -201,7 +201,7 @@ router.get("/", async (req, res, next) => {
 //*-----------------ELIMINAR USUARIO------------------*//
 router.delete("/borrar/:email", autorizacion, async (req, res, next) => {
   try {
-    const usuario = await Usuario.findOneAndDelete({ email: req.params.email });
+    const usuario = await User.findOneAndDelete({ email: req.params.email });
     if (!usuario) {
       return res.status(404).json({ message: "No existe el usuario" });
     }
