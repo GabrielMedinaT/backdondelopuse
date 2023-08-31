@@ -21,15 +21,6 @@ router.get("/", autorizacion, async (req, res) => {
   }
 });
 
-// GET ONE
-router.get("/:level1Id", async (req, res) => {
-  try {
-    const level1 = await Level1.findById(req.params.level1Id);
-    res.json(level1);
-  } catch (err) {
-    res.json({ message: err });
-  }
-});
 
 // POST
 router.post("/post/", async (req, res) => {
@@ -46,6 +37,26 @@ router.post("/post/", async (req, res) => {
     res.json(savedLevel1);
   } catch (err) {
     res.status(500).json({ message: "Error al guardar el nivel.", error: err });
+  }
+});
+
+//Patch one
+
+router.patch("/patch/:level1Id", async (req, res) => {
+  try {
+    const updatedLevel1 = await Level1.updateOne(
+      { _id: req.params.level1Id },
+      {
+        $set: {
+          name: req.body.name,
+          address: req.body.address,
+          city: req.body.city,
+        },
+      }
+    );
+    res.json(updatedLevel1);
+  } catch (err) {
+    res.json({ message: err });
   }
 });
 
