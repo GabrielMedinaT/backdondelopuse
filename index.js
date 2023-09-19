@@ -18,7 +18,7 @@ mongoose
   .then(() =>
     app.listen(port, () =>
       console.log(
-        "Conectado a la base de datos y escuchando por el puerto " + port
+        "Conectado a la base de datos y escuchando por el puerto de toda la vida" + port
       )
     )
   )
